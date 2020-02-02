@@ -188,6 +188,13 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
             updatePlaceholder()
         }
     }
+    
+    /// A UIFont value that determines the text font of the top title label.
+    @objc dynamic open var selectedTitleFont: UIFont? = .systemFont(ofSize: 13) {
+        didSet {
+            updateTitleLabel()
+        }
+    }
 
     /// A UIColor value that determines the text color of the title label when editing
     @IBInspectable dynamic open var selectedTitleColor: UIColor = .blue {
@@ -539,6 +546,8 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
 
         var titleText: String?
         var errorText: String?
+        
+        var font = titleFont
 
         if errorMessagePlacement == .default {
             if hasErrorMessage {
@@ -548,6 +557,9 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
                     titleText = selectedTitleOrTitlePlaceholder()
                     if titleText == nil {
                         titleText = titleOrPlaceholder()
+                    } else if isEditing && !text!.isEmpty,
+                        let selectedTitleFont = selectedTitleFont {
+                        font = selectedTitleFont
                     }
                 } else {
                     titleText = titleOrPlaceholder()
@@ -561,16 +573,19 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
                 titleText = selectedTitleOrTitlePlaceholder()
                 if titleText == nil {
                     titleText = titleOrPlaceholder()
+                }  else if isEditing && !text!.isEmpty,
+                    let selectedTitleFont = selectedTitleFont {
+                    font = selectedTitleFont
                 }
             } else {
                 titleText = titleOrPlaceholder()
             }
         }
         titleLabel.text = titleText
-        titleLabel.font = titleFont
+        titleLabel.font = font
 
         errorLabel.text = errorText
-        errorLabel.font = titleFont
+        errorLabel.font = font
         updateTitleVisibility(animated)
         updateErrorVisibility(animated)
     }
