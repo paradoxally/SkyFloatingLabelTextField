@@ -187,6 +187,7 @@ class ShowcaseExampleViewController: UIViewController, UITextFieldDelegate {
         textField.titleLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
         textField.placeholderFont = UIFont(name: "AppleSDGothicNeo-Light", size: 18)
         textField.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 18)
+        textField.selectedTitleFont = UIFont(name: "AppleSDGothicNeo-Bold", size: 14)
     }
 
     // MARK: - Validating the fields when "submit" is pressed
